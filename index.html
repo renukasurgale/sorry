@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Darkness to Light</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* The gradient that creates the transition */
+            background: linear-gradient(to bottom, 
+                #050505 0%, 
+                #1a1a1a 15%, 
+                #2d3748 40%, 
+                #93C5FD 75%, 
+                #87CEEB 100%);
+            min-height: 400vh; /* Ensure enough scroll space */
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom scrollbar hide for cleaner look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Stars Animation */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+            z-index: 0;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.2); }
+            50% { opacity: var(--max-opacity); transform: scale(1); }
+        }
+
+        /* Clouds Animation */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 100px;
+            animation: float var(--duration) linear infinite;
+            z-index: 0;
+        }
+        .cloud::after, .cloud::before {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+        .cloud::after { width: 40px; height: 40px; top: -20px; left: 15px; }
+        .cloud::before { width: 50px; height: 50px; top: -30px; left: 35px; }
+        
+        @keyframes float {
+            from { transform: translateX(-200px); }
+            to { transform: translateX(100vw); }
+        }
+
+        /* Heartbeat for name */
+        .heartbeat {
+            display: inline-block;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        /* Floating animation for bubbles */
+        .float-bubble {
+            animation: float-bubble 6s ease-in-out infinite;
+        }
+        @keyframes float-bubble {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        
+        /* Shake animation for the tease */
+        .shake-on-hover:hover {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Section 1: The Dark Phase -->
+    <section id="dark-section" class="h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
+        <div class="fade-in-section z-10">
+            <h1 class="text-5xl md:text-8xl font-bold mb-6 tracking-wide text-gray-200 drop-shadow-lg">Oof... Itna Sannata? 🤐</h1>
+            <p class="text-xl md:text-3xl text-gray-400 mt-6 font-light shake-on-hover cursor-default">Lagta hai maine wapas <span class="text-red-500 font-bold">"Kali Mode"</span> activate kar diya 🌚</p>
+        </div>
+        <div class="absolute bottom-10 animate-bounce text-gray-600">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- Section 2: The Transition (Sincere Bubbles) -->
+    <section class="min-h-[150vh] flex flex-col items-center justify-center gap-32 px-6 py-20">
+        
+        <!-- Bubble 1: Playful/Self-deprecating -->
+        <div class="fade-in-section float-bubble max-w-2xl bg-gray-800/60 backdrop-blur-md p-10 rounded-3xl border border-gray-600 shadow-2xl transform -rotate-2 hover:scale-105 transition-transform duration-300">
+            <p class="text-2xl md:text-4xl font-medium leading-relaxed text-gray-100">
+                "Galti insaan se hi hoti hai na?<br>
+                <span class="text-yellow-400 text-xl md:text-3xl block mt-2">Par main toh gadha hu 🐴</span>"
+            </p>
+        </div>
+
+        <!-- Bubble 2: Serious realization -->
+        <div class="fade-in-section float-bubble max-w-2xl bg-gray-700/50 backdrop-blur-md p-10 rounded-3xl border border-gray-500 shadow-2xl transform rotate-2 self-end md:self-center mr-4 md:mr-0 hover:scale-105 transition-transform duration-300" style="animation-delay: 1s;">
+            <p class="text-2xl md:text-4xl font-medium leading-relaxed text-gray-100">
+                "But jokes apart, I really messed up.<br>
+                <span class="text-blue-300 text-xl md:text-3xl block mt-2">I shouldn't have acted that way. Dil se bura lag raha hai.</span>"
+            </p>
+        </div>
+
+        <!-- Bubble 3: Sincere plea -->
+        <div class="fade-in-section float-bubble max-w-2xl bg-gray-600/40 backdrop-blur-md p-10 rounded-3xl border border-gray-400 shadow-2xl transform -rotate-1 hover:scale-105 transition-transform duration-300" style="animation-delay: 2s;">
+            <p class="text-2xl md:text-4xl font-medium leading-relaxed text-gray-100">
+                "Tumhara gussa jayaz hai...<br>
+                <span class="text-pink-300 text-xl md:text-3xl block mt-2">Par tumhari smile ke bina sab bekaar hai.</span>"
+            </p>
+        </div>
+
+    </section>
+
+    <!-- Section 3: The Light Phase -->
+    <section id="light-section" class="h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
+        <div class="fade-in-section z-10">
+            <h2 class="text-6xl md:text-8xl font-extrabold text-slate-800 mb-10 drop-shadow-sm leading-tight">
+                Kaano pakad ke Sorry,<br>
+                <span class="text-blue-700 heartbeat block mt-4">Renuuuu baby ❤️</span>
+            </h2>
+            
+            <button id="forgiveBtn" class="group relative inline-flex items-center justify-center px-10 py-5 text-xl md:text-2xl font-bold text-white transition-all duration-200 bg-blue-600 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 hover:bg-blue-500 hover:scale-110 shadow-xl cursor-pointer">
+                <span>Chalo Maaf Kiya? 🥺</span>
+                <div class="absolute -inset-3 rounded-xl bg-blue-400 opacity-20 group-hover:opacity-40 blur-lg transition-opacity duration-200"></div>
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Generate Stars in Dark Section
+        const darkSection = document.getElementById('dark-section');
+        for(let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * 3 + 1 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            star.style.setProperty('--delay', Math.random() * 2 + 's');
+            star.style.setProperty('--max-opacity', Math.random() * 0.7 + 0.3);
+            darkSection.appendChild(star);
+        }
+
+        // Generate Clouds in Light Section
+        const lightSection = document.getElementById('light-section');
+        for(let i = 0; i < 6; i++) {
+            const cloud = document.createElement('div');
+            cloud.classList.add('cloud');
+            const width = Math.random() * 100 + 100 + 'px';
+            const height = Math.random() * 30 + 30 + 'px';
+            cloud.style.width = width;
+            cloud.style.height = height;
+            cloud.style.top = Math.random() * 60 + '%'; // Keep in upper 60%
+            cloud.style.left = -200 + 'px'; // Start off screen
+            cloud.style.setProperty('--duration', Math.random() * 20 + 25 + 's'); // Slower clouds
+            cloud.style.animationDelay = Math.random() * 15 + 's'; 
+            lightSection.insertBefore(cloud, lightSection.firstChild);
+        }
+
+        // Confetti Logic
+        document.getElementById('forgiveBtn').addEventListener('click', function() {
+            const duration = 3000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function random(min, max) {
+              return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+              const timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+
+              const particleCount = 50 * (timeLeft / duration);
+              
+              // since particles fall down, start a bit higher than random
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+            
+            // Also launch some hearts
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    spread: 100,
+                    origin: { y: 0.6 },
+                    shapes: ['heart'],
+                    colors: ['#FF69B4', '#FF1493', '#C71585'],
+                    scalar: 2
+                });
+            }, 500);
+
+            // Change button text
+            this.innerHTML = "<span>Love you ❤️</span>";
+            this.classList.remove('bg-blue-600', 'hover:bg-blue-500');
+            this.classList.add('bg-green-500', 'hover:bg-green-400');
+            
+            // Disable button
+            this.style.pointerEvents = 'none';
+        });
+    </script>
+</body>
+</html>
